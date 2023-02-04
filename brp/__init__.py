@@ -161,7 +161,9 @@ def save_to_file(input_filename: str, output_filename: str):
             )
 
 
-if __name__ == "__main__":
+
+
+def run():
     args = parser.parse_args()
     save_to_file(
         input_filename=args.input_filename, output_filename=args.output_filename

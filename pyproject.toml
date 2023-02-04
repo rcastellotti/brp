@@ -1,0 +1,32 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brp"
+version = "0.0.2"
+description = "convert burpsuite export to python-requests"
+readme = "readme.md"
+authors = [{ name = "Roberto Castellotti", email = "me@rcastellotti.dev" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["feed", "reader", "tutorial"]
+dependencies = [
+    "feedparser >= 5.2.0",
+    "html2text",
+    'tomli; python_version < "3.11"',
+]
+requires-python = ">=3.9"
+
+
+[project.urls]
+Homepage = "https://github.com/rcastellotti/brp"
+
+[project.scripts]
+brp = "brp:run"
