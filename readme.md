@@ -1,6 +1,6 @@
 # brp
 
-`brp` is a simple tool to convert request from [burpsuite](https://portswigger.net/butp)'s HTTP History export to [python-requests](https://requests.readthedocs.io/en/latest/user/quickstart/).
+`brp` is a simple tool to convert request from [burpsuite](https://portswigger.net/burp)'s HTTP History export to [python-requests](https://requests.readthedocs.io/en/latest/user/quickstart/).
 
 To obtain the HTTP History export file just intercept some requests, go to HTTP History, select them, right click and click `Save Items`.
 
