@@ -23,4 +23,5 @@ setup(
         "Topic :: Utilities",
         "License :: OSI Approved :: BSD License",
     ],
+    scripts=["brp/brp"]
 )
