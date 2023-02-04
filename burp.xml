@@ -1,0 +1,91 @@
+<?xml version="1.1"?>
+<!-- NOTE: Any NULL bytes in requests and responses are preserved within this output, even though
+this strictly breaks the XML syntax. If your XML parser rejects the NULL bytes then you will need to
+remove or replace these bytes before parsing. Alternatively, you can use the option to base64-encode
+requests and responses. -->
+<!DOCTYPE items [
+  <!ELEMENT items (item*)>
+  <!ATTLIST items burpVersion CDATA "">
+  <!ATTLIST items exportTime CDATA "">
+  <!ELEMENT item (time, url, host, port, protocol, method, path, extension, request, status, responselength, mimetype, response, comment)>
+  <!ELEMENT time (#PCDATA)>
+  <!ELEMENT url (#PCDATA)>
+  <!ELEMENT host (#PCDATA)>
+  <!ATTLIST host ip CDATA "">
+  <!ELEMENT port (#PCDATA)>
+  <!ELEMENT protocol (#PCDATA)>
+  <!ELEMENT method (#PCDATA)>
+  <!ELEMENT path (#PCDATA)>
+  <!ELEMENT extension (#PCDATA)>
+  <!ELEMENT request (#PCDATA)>
+  <!ATTLIST request base64 (true|false) "false">
+  <!ELEMENT status (#PCDATA)>
+  <!ELEMENT responselength (#PCDATA)>
+  <!ELEMENT mimetype (#PCDATA)>
+  <!ELEMENT response (#PCDATA)>
+  <!ATTLIST response base64 (true|false) "false">
+  <!ELEMENT comment (#PCDATA)>
+]>
+<items burpVersion="2022.12.7" exportTime="Sat Feb 04 01:56:49 CET 2023">
+  <item>
+    <time>Sat Feb 04 01:55:09 CET 2023</time>
+    <url><![CDATA[https://api.twitter.com/1.1/jot/client_event.json?keepalive=false]]></url>
+    <host ip="104.244.42.2">api.twitter.com</host>
+    <port>443</port>
+    <protocol>https</protocol>
+    <method><![CDATA[POST]]></method>
+    <path><![CDATA[/1.1/jot/client_event.json?keepalive=false]]></path>
+    <extension>json</extension>
+    <request base64="false"><![CDATA[POST /1.1/jot/client_event.json?keepalive=false HTTP/2
+Host: api.twitter.com
+Cookie: guest_id=v1%3A167537407404289669; d_prefs=MToxLGNvbnNlbnRfdmVyc2lvbjoyLHRleHRfdmVyc2lvbjoxMDAw; guest_id_ads=v1%3A167537407404289669; guest_id_marketing=v1%3A167537407404289669; personalization_id="v1_XllVzr6CA3iW4P2Qdk6k/A=="; _ga=GA1.2.1665478394.1675374080; _gid=GA1.2.1606044619.1675374080; kdt=kQOKNb6nZhJWzlMjB5fp3L3pGiVfJ0w8GqN149bZ; auth_token=8ecbe38432e6d3064f3e2619263396348e83365c; ct0=c8f4f21427963eb14e563d10cf4f2f0c00bed7473f59cfb20e1013d415fbc4880675d135aafebcd5289abbe5d4a9d0986cee528c106ec60e8637ac6e44ce96697343b96cabcd3fa310e7833bf556ce36; twid=u%3D1621259590124945408; eu_cn=1
+Content-Length: 1556
+Sec-Ch-Ua: "Chromium";v="109", "Not_A Brand";v="99"
+X-Twitter-Client-Language: en
+X-Csrf-Token: c8f4f21427963eb14e563d10cf4f2f0c00bed7473f59cfb20e1013d415fbc4880675d135aafebcd5289abbe5d4a9d0986cee528c106ec60e8637ac6e44ce96697343b96cabcd3fa310e7833bf556ce36
+Sec-Ch-Ua-Mobile: ?0
+Authorization: Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.5414.120 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+X-Twitter-Auth-Type: OAuth2Session
+X-Twitter-Active-User: yes
+Sec-Ch-Ua-Platform: "macOS"
+Origin: https://twitter.com
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://twitter.com/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-GB,en-US;q=0.9,en;q=0.8
+
+category=perftown&log=%5B%7B%22description%22%3A%22rweb%3Aseen_ids%3Apersistence%3Aget%3Asuccess%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A10%7D%2C%7B%22description%22%3A%22rweb%3Aseen_ids%3Apersistence%3Aget%3Asuccess%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A10%7D%2C%7B%22description%22%3A%22rweb%3Ainit%3AstorePrepare%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A9%7D%2C%7B%22description%22%3A%22rweb%3Attft%3AperfSupported%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A1%7D%2C%7B%22description%22%3A%22rweb%3Attft%3AperfSupported%3ADE%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A1%7D%2C%7B%22description%22%3A%22rweb%3Attft%3Aconnect%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A52%7D%2C%7B%22description%22%3A%22rweb%3Attft%3Aconnect%3ADE%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A52%7D%2C%7B%22description%22%3A%22rweb%3Attft%3Aprocess%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A63%7D%2C%7B%22description%22%3A%22rweb%3Attft%3Aprocess%3ADE%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A63%7D%2C%7B%22description%22%3A%22rweb%3Attft%3Aresponse%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A1%7D%2C%7B%22description%22%3A%22rweb%3Attft%3Aresponse%3ADE%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A1%7D%2C%7B%22description%22%3A%22rweb%3Attft%3Ainteractivity%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A657%7D%2C%7B%22description%22%3A%22rweb%3Attft%3Ainteractivity%3ADE%22%2C%22product%22%3A%22rweb%22%2C%22duration_ms%22%3A657%7D%5D]]></request>
+    <status>200</status>
+    <responselength>1052</responselength>
+    <mimetype></mimetype>
+    <response base64="false"><![CDATA[HTTP/2 200 OK
+Date: Sat, 04 Feb 2023 00:55:15 GMT
+Perf: 7626143928
+Pragma: no-cache
+Server: tsa_o
+Expires: Tue, 31 Mar 1981 05:00:00 GMT
+Cache-Control: no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+Last-Modified: Sat, 04 Feb 2023 00:55:15 GMT
+X-Transaction: da03406a5518ddc4
+Content-Length: 0
+X-Frame-Options: SAMEORIGIN
+X-Transaction-Id: da03406a5518ddc4
+X-Xss-Protection: 0
+X-Content-Type-Options: nosniff
+X-Twitter-Response-Tags: BouncerCompliant
+Strict-Transport-Security: max-age=631138519
+Access-Control-Allow-Origin: https://twitter.com
+Access-Control-Allow-Credentials: true
+Access-Control-Expose-Headers: X-Twitter-Spotify-Access-Token,X-Twitter-Client-Version,X-Twitter-Diffy-Request-Key,X-Rate-Limit-Limit,X-TD-Mtime,X-Twitter-Client,Backoff-Policy,X-Rate-Limit-Remaining,Content-Length,X-Rate-Limit-Reset,X-Transaction-Id,X-Acted-As-User-Id,X-Twitter-Polling,X-Twitter-UTCOffset,X-Response-Time
+X-Response-Time: 125
+X-Connection-Hash: 3cdd9b1e2d839ac68da67b6be6f50bbe6024c4f94610fc76baa97909639e9459
+
+]]></response>
+    <comment></comment>
+  </item>
+</items>
