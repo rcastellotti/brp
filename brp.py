@@ -3,17 +3,63 @@ import json
 import xml.etree.ElementTree as ET
 import logging
 import argparse
+import os
 
 logging.basicConfig(level=logging.DEBUG)
 parser = argparse.ArgumentParser(description="brp")
 parser.add_argument(
-    "-f",
-    "--filename",
-    dest="filename",
+    "-i",
+    "--input",
+    dest="input_filename",
     type=str,
-    help="an integer for the accumulator",
+    help="input filename",
     required=True,
 )
+parser.add_argument(
+    "-o",
+    "--output",
+    dest="output_filename",
+    type=str,
+    help="output filename",
+    required=True,
+)
+
+
+def create_python_notebook(filename: str):
+    with open(filename, "a+") as f:
+        json.dump(
+            {
+                "cells": [
+                    {
+                        "cell_type": "code",
+                        "execution_count": 5,
+                        "id": "5bd0612f",
+                        "metadata": {},
+                        "outputs": [],
+                        "source": ["import requests"],
+                    },
+                ],
+                "metadata": {
+                    "kernelspec": {
+                        "display_name": "Python 3 (ipykernel)",
+                        "language": "python",
+                        "name": "python3",
+                    },
+                    "language_info": {
+                        "codemirror_mode": {"name": "ipython", "version": 3},
+                        "file_extension": ".py",
+                        "mimetype": "text/x-python",
+                        "name": "python",
+                        "nbconvert_exporter": "python",
+                        "pygments_lexer": "ipython3",
+                        "version": "3.9.6",
+                    },
+                },
+                "nbformat": 4,
+                "nbformat_minor": 5,
+            },
+            f,
+        )
 
 
 def add_cell_to_notebook(
@@ -25,42 +71,35 @@ def add_cell_to_notebook(
     method: str,
     url: str,
 ):
-    with open(filename, "r+") as f:
-        data = json.load(f)
-        data["cells"].append(
-            {
-                "cell_type": "code",
-                "execution_count": None,
-                "id": "0xb4dc0ff3",
-                "metadata": {},
-                "outputs": [],
-                "source": [
-                    f"cookies= {json.dumps(cookies, indent=4)}\n",
-                    f"headers= {json.dumps(headers, indent=4)}\n",
-                    f"params= {json.dumps(params, indent=4)}\n",
-                    f"data= {json.dumps(request_data, indent=4)}\n",
-                    f"r = requests.{method.lower()}('{url}', params=params, cookies=cookies, headers=headers, data=data)",
-                ],
-            }
-        )
+    if "ipynb" in filename:
+        if not os.path.exists(filename):
+            create_python_notebook(filename)
+        with open(filename, "r+") as f:
+            data = json.load(f)
+            data["cells"].append(
+                {
+                    "cell_type": "code",
+                    "execution_count": None,
+                    "id": "0xb4dc0ff3",
+                    "metadata": {},
+                    "outputs": [],
+                    "source": [
+                        f"cookies= {json.dumps(cookies, indent=4)}\n",
+                        f"headers= {json.dumps(headers, indent=4)}\n",
+                        f"params= {json.dumps(params, indent=4)}\n",
+                        f"data= {json.dumps(request_data, indent=4)}\n",
+                        f"r = requests.{method.lower()}('{url}', params=params, cookies=cookies, headers=headers, data=data)",
+                    ],
+                }
+            )
 
-        f.seek(0)
-        json.dump(data, f, indent=4)
-        f.truncate()
-
-
-def add_to_file(
-    filename: str,
-    cookies: dict[str, str],
-    params: dict[str, str],
-    headers: dict[str, str],
-    method: str,
-    request_data: dict[str, str],
-    url: str,
-):
-    with open(filename, "a") as f:
-        f.write(
-            f"""
+            f.seek(0)
+            json.dump(data, f, indent=4)
+            f.truncate()
+    else:
+        with open(filename, "a") as f:
+            f.write(
+                f"""
 cookies= {json.dumps(cookies, indent=4)}\n
 headers= {json.dumps(headers, indent=4)}\n
 params= {json.dumps(params, indent=4)}\n
@@ -74,11 +113,11 @@ r = requests.{method.lower()}(
     headers=headers
 )
 """
-        )
+            )
 
 
-def save_to_file(filename: str):
-    with open("burp.xml") as file:
+def save_to_file(input_filename: str, output_filename: str):
+    with open(input_filename) as file:
         tree = ET.parse(file)
         root = tree.getroot()
         for item in root[:]:
@@ -112,17 +151,7 @@ def save_to_file(filename: str):
             request_data = {k: v for k, v in [d.split("=") for d in data_parsed]}
 
             add_cell_to_notebook(
-                "template.ipynb",
-                url=url,
-                cookies=cookies,
-                headers=headers,
-                params=params,
-                method=method,
-                request_data=request_data,
-            )
-
-            add_to_file(
-                "template.py",
+                output_filename,
                 url=url,
                 cookies=cookies,
                 headers=headers,
@@ -134,4 +163,6 @@ def save_to_file(filename: str):
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    save_to_file(args.filename)
+    save_to_file(
+        input_filename=args.input_filename, output_filename=args.output_filename
+    )
