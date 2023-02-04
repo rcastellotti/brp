@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import logging
 import argparse
 import os
-
+import re
 logging.basicConfig(level=logging.DEBUG)
 parser = argparse.ArgumentParser(description="brp")
 parser.add_argument(
@@ -124,11 +124,8 @@ def save_to_file(input_filename: str, output_filename: str):
             url = item[1].text
             request_string = item[8].text
             method = item[5].text
-            cookie_list = []
-            headers_list = []
             headers = {}
             cookies = {}
-            spl = request_string.split()
 
             parsed = parse.urlsplit(url)
             url = parsed.scheme + "://" + parsed.netloc + parsed.path
@@ -147,20 +144,18 @@ def save_to_file(input_filename: str, output_filename: str):
                         headers[k] = v
 
             data_raw = request_string.splitlines()[-1]
-            data_parsed = parse.unquote(data_raw).split("&")
-            request_data = {k: v for k, v in [d.split("=") for d in data_parsed]}
-
-            add_cell_to_notebook(
-                output_filename,
-                url=url,
-                cookies=cookies,
-                headers=headers,
-                params=params,
-                method=method,
-                request_data=request_data,
-            )
-
-
+            if data_raw != "":
+                data_raw=parse.unquote(data_raw)
+                request_data = data_raw
+                add_cell_to_notebook(
+                    output_filename,
+                    url=url,
+                    cookies=cookies,
+                    headers=headers,
+                    params=params,
+                    method=method,
+                    request_data=request_data,
+                )
 
 
 def run():
@@ -168,3 +163,7 @@ def run():
     save_to_file(
         input_filename=args.input_filename, output_filename=args.output_filename
     )
+
+
+if __name__ == "__main__":
+    run()
