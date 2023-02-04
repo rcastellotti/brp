@@ -12,7 +12,7 @@ parser.add_argument(
     "--input",
     dest="input_filename",
     type=str,
-    help="input filename",
+    help="input filename (burpsuite export)",
     required=True,
 )
 parser.add_argument(
@@ -20,7 +20,7 @@ parser.add_argument(
     "--output",
     dest="output_filename",
     type=str,
-    help="output filename",
+    help="output filename (either .py or .ipynb)",
     required=True,
 )
 
