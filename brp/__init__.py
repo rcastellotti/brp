@@ -4,7 +4,6 @@ import xml.etree.ElementTree as ET
 import logging
 import argparse
 import os
-import re
 
 parser = argparse.ArgumentParser(description="brp")
 parser.add_argument(
