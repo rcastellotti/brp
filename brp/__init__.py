@@ -62,7 +62,7 @@ def create_python_notebook(filename: str):
         )
 
 
-def add_cell_to_notebook(
+def insert_in_file(
     filename: str,
     request_data: dict[str, str],
     cookies: dict[str, str],
@@ -123,14 +123,15 @@ def save_to_file(input_filename: str, output_filename: str):
         for item in root[:]:
             url = item[1].text
             request_string = item[8].text
+            logging.debug(request_string)
             method = item[5].text
             headers = {}
             cookies = {}
-
+            request_data=""
             parsed = parse.urlsplit(url)
             url = parsed.scheme + "://" + parsed.netloc + parsed.path
             params = dict(parse.parse_qsl(parsed.query))
-            logging.debug(url)
+            logging.info(url)
 
             for line in request_string.splitlines():
                 if "Cookie" in line:
@@ -143,27 +144,29 @@ def save_to_file(input_filename: str, output_filename: str):
                         k, v = line.split(": ")
                         headers[k] = v
 
+            logging.debug(f"cookies: {cookies}")
+            logging.debug(f"headers: {headers}")
+            logging.debug("\n")
             data_raw = request_string.splitlines()[-1]
             if data_raw != "":
                 data_raw=parse.unquote(data_raw)
                 request_data = data_raw
-                add_cell_to_notebook(
-                    output_filename,
-                    url=url,
-                    cookies=cookies,
-                    headers=headers,
-                    params=params,
-                    method=method,
-                    request_data=request_data,
-                )
 
-
+            insert_in_file(
+                output_filename,
+                url=url,
+                cookies=cookies,
+                headers=headers,
+                params=params,
+                method=method,
+                request_data=request_data,
+            )
+            
 def run():
     args = parser.parse_args()
     save_to_file(
         input_filename=args.input_filename, output_filename=args.output_filename
     )
-
 
 if __name__ == "__main__":
     run()
