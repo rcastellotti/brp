@@ -5,7 +5,7 @@ import logging
 import argparse
 import os
 import re
-logging.basicConfig(level=logging.DEBUG)
+
 parser = argparse.ArgumentParser(description="brp")
 parser.add_argument(
     "-i",
@@ -22,6 +22,12 @@ parser.add_argument(
     type=str,
     help="output filename (either .py or .ipynb)",
     required=True,
+)
+parser.add_argument(
+    "--debug",
+    dest="debug",
+    action="store_true",
+    required=False,
 )
 
 
@@ -127,7 +133,7 @@ def save_to_file(input_filename: str, output_filename: str):
             method = item[5].text
             headers = {}
             cookies = {}
-            request_data=""
+            request_data = ""
             parsed = parse.urlsplit(url)
             url = parsed.scheme + "://" + parsed.netloc + parsed.path
             params = dict(parse.parse_qsl(parsed.query))
@@ -149,7 +155,7 @@ def save_to_file(input_filename: str, output_filename: str):
             logging.debug("\n")
             data_raw = request_string.splitlines()[-1]
             if data_raw != "":
-                data_raw=parse.unquote(data_raw)
+                data_raw = parse.unquote(data_raw)
                 request_data = data_raw
 
             insert_in_file(
@@ -161,12 +167,18 @@ def save_to_file(input_filename: str, output_filename: str):
                 method=method,
                 request_data=request_data,
             )
-            
+
+
 def run():
     args = parser.parse_args()
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
     save_to_file(
         input_filename=args.input_filename, output_filename=args.output_filename
     )
+
 
 if __name__ == "__main__":
     run()
